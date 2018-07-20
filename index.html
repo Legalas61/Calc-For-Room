@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="calcWindet">
+    <span class="title">
+        Калькулятор ремонта:<br>
+        <span>Выберите ваш вариант ремонта</span>
+    </span>
+    <dl>
+      <dd class="room">
+        <!-- Room -->
+        <label for="room">Комната</label>
+        <div class="rooms">
+          <input type="number" class="startInput" min="0">
+        </div>
+        <div class="sum">
+          <div class="sumForRoom"></div>
+          <span class="tag"></span>
+        </div>
+        <button type="button" id="addRoom" title="Добавить комнату">+</button>
+        <!-- End -->
+      </dd>
+      <dd class="kitcin">
+        <label for="kicin">Кухня</label>
+        <input type="number" id="kitcin">
+        <div class="sumForKitcen sum"></div>
+      </dd>
+      <dd class="bedRoom">
+        <label for="bedRoom">Ванная</label>
+        <input type="number" id="bedRoom">
+        <div class="sumForbedRoom sum"></div>
+      </dd>
+      <dd class="WC">
+        <label for="WC">Сан. узел</label>
+        <input type="number" id="WC">
+        <div class="sumForWC sum"></div>
+      </dd>
+    </dl>
+    <button type="button" onclick="calcRooms()" name="button">test</button>
+  </div>
+
+  <style>
+    dd {
+      width: 100%;
+      display: flex;
+    }
+    .tag{
+      display: block;
+    }
+    .tag::after{
+      content: " руб.";
+    }
+    .calcWindet {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+
+    .calcWindet {
+      width: 55%;
+    }
+
+    .calcWindet .title {
+      text-align: center;
+      display: block;
+      font-size: 30px;
+    }
+
+    .calcWindet .title span {
+      font-size: 18px;
+    }
+
+    .room {
+      display: flex;
+    }
+
+    .calcWindet label {
+      width: 250px;
+      display: flex;
+      float: left;
+    }
+
+    .calcWindet input {
+      border: none;
+      border-bottom: 1px solid #ccc;
+      width: 50px;
+      margin-right: 10px;
+      display: block;
+      float: left;
+    }
+
+    .calcWindet .sum::before {
+      content: "м²";
+      color: #ccc;
+      margin-right: 10px;
+      float: left;
+    }
+
+    .room .tag {
+      float: left;
+      margin-left: 5px;
+    }
+
+    .sumForRoom {
+      float: left;
+    }
+
+    #addRoom {
+      background-color: rgb(28, 181, 30);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+  calcRooms();
+    // {{event add rooms}}
+    var btnAddRoom = document.querySelector('#addRoom'),
+      startInput = document.querySelector('.startInput'),
+      numberRoom = 1;
+    btnAddRoom.onclick = function() {
+      if (numberRoom == 5) {
+        btnAddRoom.style.display = "none";
+        addRoom();
+      } else if (numberRoom <= 4) {
+        addRoom();
+      }
+    }
+
+    function addRoom() {
+      var listItemsRoom = document.querySelector('.rooms'),
+          newRoom = document.createElement('input');
+
+      newRoom.className = "startInput";
+      newRoom.setAttribute("min","0");
+      newRoom.setAttribute("type","number");
+      listItemsRoom.insertBefore(newRoom, listItemsRoom.lastChild);
+
+      numberRoom++;
+      calcRooms();
+    }
+
+  // calc Rooms
+    function calcRooms() {
+      var AllRooms = document.querySelectorAll('.startInput'),
+          tagPriceBlock = document.querySelector('.tag');
+
+      for (var i = 0; i < AllRooms.length; i++) {
+        AllRooms[i].onkeyup = function () {
+          return tagPriceBlock.innerText = this.value;
+        }
+        let price = tagPriceBlock.innerText;
+        console.log(price);
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>
